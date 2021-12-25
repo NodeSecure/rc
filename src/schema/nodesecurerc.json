@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "version of the rc package used to generate the nodesecurerc file"
+    }
+  },
+  "required": ["version"],
+  "additionalProperties": false
+}
