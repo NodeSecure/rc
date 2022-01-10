@@ -7,8 +7,7 @@ import Config from "@slimio/config";
 import TR from "ts-results";
 
 // Import Internal Dependencies
-import schema from "../schema/nodesecurerc.json";
-import { RC, generateDefaultRC } from "../rc.js";
+import { RC, JSONSchema, generateDefaultRC } from "../rc.js";
 import * as CONSTANTS from "../constants.js";
 
 // CONSTANTS
@@ -32,7 +31,7 @@ export async function read(
 
     const cfgPath = path.join(location, CONSTANTS.CONFIGURATION_NAME);
     const cfg = new Config<RC>(cfgPath, {
-      defaultSchema: schema,
+      defaultSchema: JSONSchema,
       createOnNoEntry: createIfDoesNotExist
     });
 

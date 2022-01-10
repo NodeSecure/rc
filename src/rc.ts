@@ -1,5 +1,14 @@
+// Import Node.js Dependencies
+import { readFileSync } from "node:fs";
+
+function readJSON(path: string) {
+  const buf = readFileSync(new URL(path, import.meta.url));
+
+  return JSON.parse(buf.toString());
+}
+
 // CONSTANTS
-const kPackageVersion = (await import("../package.json")).default.version;
+export const JSONSchema = readJSON("./schema/nodesecurerc.json");
 
 export interface RC {
   /** version of the rc package used to generate the nodesecurerc file */
@@ -8,6 +17,6 @@ export interface RC {
 
 export function generateDefaultRC(): RC {
   return {
-    version: kPackageVersion
+    version: "1.0.0"
   };
 }

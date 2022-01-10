@@ -2,7 +2,7 @@
   "name": "@nodesecure/rc",
   "version": "1.0.0",
   "description": "NodeSecure runtime configuration",
-  "exports": "./dist/src/index.js",
+  "exports": "./dist/index.js",
   "type": "module",
   "engines": {
     "node": ">=16"
