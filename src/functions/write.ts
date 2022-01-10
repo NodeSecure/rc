@@ -3,7 +3,7 @@ import path from "path";
 
 // Import Third-party Dependencies
 import Config from "@slimio/config";
-import TR from "ts-results";
+import TR, { Result } from "ts-results";
 
 // Import Internal Dependencies
 import { RC, JSONSchema } from "../rc.js";
@@ -28,7 +28,7 @@ export interface writeOptions {
 export async function write(
   location = process.cwd(),
   options: writeOptions
-): Promise<TR.Result<void, NodeJS.ErrnoException>> {
+): Promise<Result<void, NodeJS.ErrnoException>> {
   try {
     const { payload, partialUpdate = false } = options;
 

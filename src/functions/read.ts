@@ -4,7 +4,7 @@ import { once } from "node:events";
 
 // Import Third-party Dependencies
 import Config from "@slimio/config";
-import TR from "ts-results";
+import TR, { Result } from "ts-results";
 
 // Import Internal Dependencies
 import { RC, JSONSchema, generateDefaultRC } from "../rc.js";
@@ -25,7 +25,7 @@ export interface readOptions {
 export async function read(
   location = process.cwd(),
   options: readOptions = Object.create(null)
-): Promise<TR.Result<RC, NodeJS.ErrnoException>> {
+): Promise<Result<RC, NodeJS.ErrnoException>> {
   try {
     const { createIfDoesNotExist = false } = options;
 
