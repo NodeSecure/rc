@@ -8,8 +8,8 @@ import TR from "ts-results";
 
 // Import Internal Dependencies
 import schema from "../schema/nodesecurerc.json";
-import { RC, generateDefaultRC } from "../rc";
-import * as CONSTANTS from "../constants";
+import { RC, generateDefaultRC } from "../rc.js";
+import * as CONSTANTS from "../constants.js";
 
 // CONSTANTS
 const { Ok, Err } = TR;

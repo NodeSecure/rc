@@ -7,8 +7,8 @@ import os from "node:os";
 import { expect } from "chai";
 
 // Import Internal Dependencies
-import { read } from "../src/index";
-import { generateDefaultRC } from "../src/rc";
+import { read } from "../src/index.js";
+import { generateDefaultRC } from "../src/rc.js";
 
 describe("read .nodesecurerc", () => {
   const location = path.join(os.tmpdir(), "rcread");

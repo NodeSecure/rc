@@ -3,7 +3,7 @@ import { expect } from "chai";
 import Ajv from "ajv";
 
 // Import Internal Dependencies
-import * as RC from "../src/index";
+import * as RC from "../src/index.js";
 
 describe("CONSTANTS", () => {
   it("should export a CONSTANTS variable", () => {
