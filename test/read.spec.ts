@@ -49,7 +49,8 @@ describe("read .nodesecurerc", () => {
     expect(result.ok).equal(true);
     expect(result.val).deep.equal({
       version: "2.1.0",
-      i18n: "french"
+      i18n: "french",
+      strategy: "none"
     });
   });
 });
