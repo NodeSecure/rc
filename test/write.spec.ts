@@ -61,5 +61,16 @@ describe("write and/or update .nodesecurerc", () => {
     expect(readResult.val).deep.equal(payload);
   });
 
-  // TODO: partial update test
+  it("should partially update payload (content of .nodesecurerc)", async() => {
+    const defaultRC = generateDefaultRC();
+    const payload = { i18n: "french" as const };
+
+    const writeResult = await write(location, { payload, partialUpdate: true });
+    expect(writeResult.ok).equal(true);
+    expect(writeResult.val).equal(void 0);
+
+    const readResult = await read(location, { createIfDoesNotExist: false });
+    expect(readResult.ok).equal(true);
+    expect(readResult.val).deep.equal({ ...defaultRC, ...payload });
+  });
 });

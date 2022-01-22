@@ -4,6 +4,7 @@ import Ajv from "ajv";
 
 // Import Internal Dependencies
 import * as RC from "../src/index.js";
+import { generateDefaultRC } from "../src/rc.js";
 
 describe("CONSTANTS", () => {
   it("should export a CONSTANTS variable", () => {
@@ -17,7 +18,7 @@ describe("JSON Schema", () => {
     const ajv = new Ajv();
     const validate = ajv.compile(RC.JSONSchema);
 
-    expect(validate({ version: "1.0.0" })).equal(true);
+    expect(validate(generateDefaultRC())).equal(true);
     expect(validate({ foo: "bar" })).equal(false);
   });
 });

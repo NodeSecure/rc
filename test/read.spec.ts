@@ -2,6 +2,7 @@
 import * as fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { fileURLToPath } from "url";
 
 // Import Third-party Dependencies
 import { expect } from "chai";
@@ -10,8 +11,12 @@ import { expect } from "chai";
 import { read } from "../src/index.js";
 import { generateDefaultRC } from "../src/rc.js";
 
+// CONSTANTS
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 describe("read .nodesecurerc", () => {
   const location = path.join(os.tmpdir(), "rcread");
+  const fixtures = path.join(__dirname, "fixtures");
 
   before(async() => {
     await fs.mkdir(location);
@@ -36,5 +41,15 @@ describe("read .nodesecurerc", () => {
 
     expect(result.ok).equal(true);
     expect(result.val).deep.equal(generateDefaultRC());
+  });
+
+  it("should read fixtures/.nodesecurerc file", async() => {
+    const result = await read(fixtures, { createIfDoesNotExist: false });
+
+    expect(result.ok).equal(true);
+    expect(result.val).deep.equal({
+      version: "2.1.0",
+      i18n: "french"
+    });
   });
 });
