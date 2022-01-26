@@ -2,13 +2,13 @@
 import * as fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // Import Third-party Dependencies
 import { expect } from "chai";
 
 // Import Internal Dependencies
-import { read } from "../src/index.js";
+import { read, CONSTANTS } from "../src/index.js";
 import { generateDefaultRC } from "../src/rc.js";
 
 // CONSTANTS
@@ -20,6 +20,10 @@ describe("read .nodesecurerc", () => {
 
   before(async() => {
     await fs.mkdir(location);
+  });
+
+  beforeEach(async() => {
+    await fs.rm(path.join(location, CONSTANTS.CONFIGURATION_NAME), { force: true });
   });
 
   after(async() => {
@@ -43,7 +47,15 @@ describe("read .nodesecurerc", () => {
     expect(result.val).deep.equal(generateDefaultRC());
   });
 
+  it("should read and create a new .nodesecurerc with createMode equal to 'ci'", async() => {
+    const result = await read(location, { createMode: "ci" });
+
+    expect(result.ok).equal(true);
+    expect(result.val).deep.equal(generateDefaultRC("ci"));
+  });
+
   it("should read fixtures/.nodesecurerc file", async() => {
+    await read(location, { createIfDoesNotExist: true });
     const result = await read(fixtures, { createIfDoesNotExist: false });
 
     expect(result.ok).equal(true);

@@ -52,6 +52,7 @@
     "@nodesecure/js-x-ray": "^4.2.0",
     "@nodesecure/vuln": "^1.4.1",
     "@slimio/config": "^1.0.0",
-    "ts-results": "^3.3.0"
+    "ts-results": "^3.3.0",
+    "type-fest": "^2.10.0"
   }
 }

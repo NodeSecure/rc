@@ -58,14 +58,22 @@ assert.strictEqual(result, void 0);
 ### read(location?: string, options?: readOptions): Promise< Result< RC, NodeJS.ErrnoException > >
 
 ```ts
-export interface readOptions {
+interface createReadOptions {
   /**
    * If enabled the file will be created if it does not exist on the disk.
    *
    * @default false
    */
   createIfDoesNotExist?: boolean;
+  /**
+   * RC Generation mode. This option allows to generate a more or less complete configuration for some NodeSecure tools.
+   *
+   * @default `minimal`
+   */
+  createMode?: RCGenerationMode | RCGenerationMode[];
 }
+
+export type readOptions = RequireAtLeastOne<createReadOptions, "createIfDoesNotExist" | "createMode">;
 ```
 
 ### write(location?: string, options: writeOptions): Promise< Result< void, NodeJS.ErrnoException > >
