@@ -50,7 +50,7 @@ export interface RC {
      * JS-X-Ray warnings configuration
      * @see https://github.com/NodeSecure/js-x-ray#warnings-legends-v20
      */
-    warnings?: Warnings | Record<jsxray.kindWithValue & "unsafe-import", Warnings>;
+    warnings?: Warnings | Record<jsxray.kindWithValue | "unsafe-import", Warnings>;
   }
 }
 
