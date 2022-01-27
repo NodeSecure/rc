@@ -4,13 +4,15 @@
   "description": "NodeSecure runtime configuration",
   "exports": "./dist/index.js",
   "type": "module",
+  "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=16"
   },
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "test": "mocha --parallel",
+    "test": "mocha --parallel && npm run test:tsd",
+    "test:tsd": "tsd",
     "coverage": "c8 -r html npm test",
     "lint": "cross-env eslint src/*.ts"
   },
@@ -45,6 +47,7 @@
     "mocha": "^9.1.4",
     "tape": "^5.4.1",
     "ts-node": "^10.4.0",
+    "tsd": "^0.19.1",
     "typescript": "^4.5.5"
   },
   "dependencies": {
@@ -54,5 +57,11 @@
     "@slimio/config": "^1.0.0",
     "ts-results": "^3.3.0",
     "type-fest": "^2.10.0"
+  },
+  "tsd": {
+    "directory": "test/types",
+    "compilerOptions": {
+      "esModuleInterop": true
+    }
   }
 }

@@ -55,6 +55,6 @@ export async function read(
     return new Ok(result);
   }
   catch (error) {
-    return new Err(error);
+    return new Err(error as NodeJS.ErrnoException);
   }
 }

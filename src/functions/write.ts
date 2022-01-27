@@ -46,6 +46,6 @@ export async function write(
     return new Ok(void 0);
   }
   catch (error) {
-    return new Err(error);
+    return new Err(error as NodeJS.ErrnoException);
   }
 }
