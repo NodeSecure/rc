@@ -76,21 +76,39 @@ interface createReadOptions {
 export type readOptions = RequireAtLeastOne<createReadOptions, "createIfDoesNotExist" | "createMode">;
 ```
 
-### write(location?: string, options: writeOptions): Promise< Result< void, NodeJS.ErrnoException > >
+The `createIfDoesNotExist` argument can be ignored if `createMode` is provided.
 
 ```ts
-export interface writeOptions {
-  /**
-   * Mandatory payload
-   */
-  payload: Partial<RC>;
-  /**
-   * Partially update the payload. This implies not to rewrite the content of the file when enabled.
-   *
-   * @default false
-   */
-  partialUpdate?: boolean;
+import * as RC from "@nodesecure/rc";
+
+const configurationPayload = (
+  await RC.read(void 0, { createMode: "ci" })
+).unwrap();
+console.log(configurationPayload);
+```
+
+### write(location?: string, options: writeOptions): Promise< Result< void, NodeJS.ErrnoException > >
+
+By default the write API will overwrite the current payload with the provided one. When the `partialUpdate` option is enabled it will merge the new properties with the existing one.
+
+```ts
+/**
+ * Overwrite the complete payload. partialUpdate property is mandatory.
+ */
+export interface writeCompletePayload {
+  payload: RC;
+  partialUpdate?: false;
 }
+
+/**
+ * Partially update the payload. This implies not to rewrite the content of the file when enabled.
+ **/
+export interface writePartialPayload {
+  payload: Partial<RC>;
+  partialUpdate: true;
+}
+
+export type writeOptions = writeCompletePayload | writePartialPayload;
 ```
 
 ### CONSTANTS
@@ -100,6 +118,24 @@ import assert from "node:assert/strict";
 import * as RC from "@nodesecure/rc";
 
 assert.strictEqual(RC.CONSTANTS.CONFIGURATION_NAME, ".nodesecurerc");
+```
+
+### Generation Mode
+
+We provide by default a configuration generation that we consider `minimal`. On the contrary, a `complete` value will indicate the generation with all possible default keys.
+
+```ts
+export type RCGenerationMode = "minimal" | "ci" | "complete";
+```
+
+However, depending on the NodeSecure tool you are working on, it can be interesting to generate a configuration with some property sets specific to your needs.
+
+Note that you can combine several modes:
+
+```ts
+import * as RC from "@nodesecure/rc";
+
+await RC.read(void 0, { createMode: ["ci", "scanner"] })
 ```
 
 ## JSON Schema
