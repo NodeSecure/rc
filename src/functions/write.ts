@@ -12,18 +12,23 @@ import * as CONSTANTS from "../constants.js";
 // CONSTANTS
 const { Ok, Err } = TR;
 
-export interface writeOptions {
-  /**
-   * Mandatory payload
-   */
-  payload: Partial<RC>;
-  /**
-   * Partially update the payload. This implies not to rewrite the content of the file when enabled.
-   *
-   * @default false
-   */
-  partialUpdate?: boolean;
+/**
+ * Overwrite the complete payload. partialUpdate property is mandatory.
+ */
+export interface writeCompletePayload {
+  payload: RC;
+  partialUpdate?: false;
 }
+
+/**
+ * Partially update the payload. This implies not to rewrite the content of the file when enabled.
+ **/
+export interface writePartialPayload {
+  payload: Partial<RC>;
+  partialUpdate: true;
+}
+
+export type writeOptions = writeCompletePayload | writePartialPayload;
 
 export async function write(
   location = process.cwd(),

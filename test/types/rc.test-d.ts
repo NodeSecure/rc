@@ -7,7 +7,7 @@ import {
   generateCIConfiguration,
   RC,
   CiConfiguration
-} from "../../src/rc";
+} from "../../src/rc.js";
 
 expectAssignable<RC>(generateDefaultRC());
 expectAssignable<{ ci: CiConfiguration }>(generateCIConfiguration());
