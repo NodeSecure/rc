@@ -40,13 +40,14 @@ describe("write and/or update .nodesecurerc", () => {
   });
 
   it("should fail to write because the payload is not matching the JSON Schema", async() => {
-    const payload = { foo: "bar" };
-
-    // @ts-ignore
+    const payload = { foo: "bar" } as any;
     const result = await write(location, { payload });
-    // TODO: fix Ajv 8 error in SlimIO/Config
+
     expect(result.ok).equal(false);
-    expect(result.val instanceof Error).equal(true);
+
+    const value = result.val as Error;
+    expect(value instanceof Error).equal(true);
+    expect(value.message.includes("must have required property 'version'")).equal(true);
   });
 
   it("should rewrite a complete payload (content of .nodesecurerc)", async() => {
