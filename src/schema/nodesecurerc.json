@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "version of the rc package used to generate the nodesecurerc file"
+    },
+    "i18n": {
+      "type": "string",
+      "enum": ["french", "english"],
+      "default": "english",
+      "description": "Language to use for i18n"
+    },
+    "strategy": {
+      "type": "string",
+      "enum": ["npm", "node", "snyk", "none"],
+      "default": "npm",
+      "description": "Vulnerability strategy to use"
+    },
+    "ci": {
+      "$ref": "#/$defs/ci"
+    }
+  },
+  "required": ["version"],
+  "additionalProperties": false,
+  "$defs": {
+    "ci": {
+      "type": "object",
+      "properties": {
+        "reporters": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "type": "string",
+            "enum": ["html", "console"]
+          },
+          "default": ["console"]
+        },
+        "vulnerabilities": {
+          "type": "object",
+          "properties": {
+            "severity": {
+              "type": "string",
+              "enum": ["medium", "high", "critical", "all"],
+              "default": "all"
+            }
+          },
+          "additionalProperties": false
+        },
+        "warnings": {
+          "default": "off",
+          "description": "JS-X-Ray warnings configuration",
+          "oneOf": [
+            { "$ref": "#/$defs/ciWarnings" },
+            {
+              "type": "object",
+              "minProperties": 1,
+              "patternProperties": {
+                "^[A-Za-z-]+$": { "$ref": "#/$defs/ciWarnings" }
+              }
+            }
+          ]
+        }
+      },
+      "required": ["reporters", "warnings"],
+      "additionalProperties": false
+    },
+    "ciWarnings": {
+      "type": "string",
+      "enum": ["off", "error", "warning"]
+    }
+  }
+}
