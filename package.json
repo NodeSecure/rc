@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@nodesecure/i18n": "^1.2.1",
-    "@nodesecure/js-x-ray": "^4.2.0",
+    "@nodesecure/js-x-ray": "^4.2.1",
     "@nodesecure/vuln": "^1.5.0",
     "@slimio/config": "^1.0.1",
     "ts-results": "^3.3.0",
