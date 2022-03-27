@@ -1,10 +1,10 @@
 // Import Types Dependencies
 import i18n from "@nodesecure/i18n";
 import * as vuln from "@nodesecure/vuln";
-import * as jsxray from "@nodesecure/js-x-ray";
 
 // Import Internal Dependencies
 import { readJSONSync } from "./utils/index.js";
+import { generateCIConfiguration, CiConfiguration, CiWarnings } from "./projects/ci.js";
 
 // CONSTANTS
 export const JSONSchema = readJSONSync("./schema/nodesecurerc.json", import.meta.url);
@@ -31,40 +31,6 @@ export interface RC {
   ci?: CiConfiguration;
 }
 
-/**
- * Configuration dedicated for NodeSecure CI (or nsci)
- * @see https://github.com/NodeSecure/ci
- * @see https://github.com/NodeSecure/ci-action
- */
-export interface CiConfiguration {
-  /**
-   * List of enabled reporters
-   * @see https://github.com/NodeSecure/ci#reporters
-   */
-  reporters?: ("console" | "html")[];
-  vulnerabilities?: {
-    severity?: "medium" | "high" | "critical" | "all"
-  };
-  /**
-   * JS-X-Ray warnings configuration
-   * @see https://github.com/NodeSecure/js-x-ray#warnings-legends-v20
-   */
-  warnings?: CiWarnings | Record<jsxray.kindWithValue | "unsafe-import", CiWarnings>;
-}
-export type CiWarnings = "off" | "error" | "warning";
-
-export function generateCIConfiguration(): { ci: CiConfiguration } {
-  const ci: CiConfiguration = {
-    reporters: ["console"],
-    vulnerabilities: {
-      severity: "medium"
-    },
-    warnings: "error"
-  };
-
-  return { ci };
-}
-
 export type RCGenerationMode = "minimal" | "ci" | "complete";
 
 /**
@@ -87,3 +53,9 @@ export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = 
     complete || modes.has("ci") ? generateCIConfiguration() : {}
   );
 }
+
+export {
+  CiConfiguration,
+  CiWarnings,
+  generateCIConfiguration
+};
