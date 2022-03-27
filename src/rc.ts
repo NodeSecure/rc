@@ -3,11 +3,12 @@ import i18n from "@nodesecure/i18n";
 import * as vuln from "@nodesecure/vuln";
 
 // Import Internal Dependencies
-import { readJSONSync } from "./utils/index.js";
+import { loadJSONSchemaSync } from "./schema/loader.js";
 import { generateCIConfiguration, CiConfiguration, CiWarnings } from "./projects/ci.js";
+import { generateReportConfiguration, ReportConfiguration, ReportChart } from "./projects/report.js";
 
 // CONSTANTS
-export const JSONSchema = readJSONSync("./schema/nodesecurerc.json", import.meta.url);
+export const JSONSchema = loadJSONSchemaSync();
 
 export interface RC {
   /** version of the rc package used to generate the nodesecurerc file */
@@ -29,14 +30,16 @@ export interface RC {
   strategy?: vuln.Strategy.Kind;
   /** NodeSecure ci Object configuration */
   ci?: CiConfiguration;
+  /** NodeSecure report Object configuration */
+  report?: ReportConfiguration;
 }
 
-export type RCGenerationMode = "minimal" | "ci" | "complete";
+export type RCGenerationMode = "minimal" | "ci" | "report" | "complete";
 
 /**
  * @example
  * generateDefaultRC("complete");
- * generateDefaultRC(["ci", "scanner"]); // minimal + ci + scanner
+ * generateDefaultRC(["ci", "report"]); // minimal + ci + report
  */
 export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = "minimal"): RC {
   const modes = new Set(typeof mode === "string" ? [mode] : mode);
@@ -50,12 +53,17 @@ export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = 
 
   return Object.assign(
     minimalRC,
-    complete || modes.has("ci") ? generateCIConfiguration() : {}
+    complete || modes.has("ci") ? generateCIConfiguration() : {},
+    complete || modes.has("report") ? generateReportConfiguration() : {}
   );
 }
 
 export {
+  generateCIConfiguration,
   CiConfiguration,
   CiWarnings,
-  generateCIConfiguration
+
+  generateReportConfiguration,
+  ReportConfiguration,
+  ReportChart
 };
