@@ -1,13 +1,14 @@
 // Import Types Dependencies
 import i18n from "@nodesecure/i18n";
 import * as vuln from "@nodesecure/vuln";
-import * as jsxray from "@nodesecure/js-x-ray";
 
 // Import Internal Dependencies
-import { readJSONSync } from "./utils/index.js";
+import { loadJSONSchemaSync } from "./schema/loader.js";
+import { generateCIConfiguration, CiConfiguration, CiWarnings } from "./projects/ci.js";
+import { generateReportConfiguration, ReportConfiguration, ReportChart } from "./projects/report.js";
 
 // CONSTANTS
-export const JSONSchema = readJSONSync("./schema/nodesecurerc.json", import.meta.url);
+export const JSONSchema = loadJSONSchemaSync();
 
 export interface RC {
   /** version of the rc package used to generate the nodesecurerc file */
@@ -29,48 +30,16 @@ export interface RC {
   strategy?: vuln.Strategy.Kind;
   /** NodeSecure ci Object configuration */
   ci?: CiConfiguration;
+  /** NodeSecure report Object configuration */
+  report?: ReportConfiguration;
 }
 
-/**
- * Configuration dedicated for NodeSecure CI (or nsci)
- * @see https://github.com/NodeSecure/ci
- * @see https://github.com/NodeSecure/ci-action
- */
-export interface CiConfiguration {
-  /**
-   * List of enabled reporters
-   * @see https://github.com/NodeSecure/ci#reporters
-   */
-  reporters?: ("console" | "html")[];
-  vulnerabilities?: {
-    severity?: "medium" | "high" | "critical" | "all"
-  };
-  /**
-   * JS-X-Ray warnings configuration
-   * @see https://github.com/NodeSecure/js-x-ray#warnings-legends-v20
-   */
-  warnings?: CiWarnings | Record<jsxray.kindWithValue | "unsafe-import", CiWarnings>;
-}
-export type CiWarnings = "off" | "error" | "warning";
-
-export function generateCIConfiguration(): { ci: CiConfiguration } {
-  const ci: CiConfiguration = {
-    reporters: ["console"],
-    vulnerabilities: {
-      severity: "medium"
-    },
-    warnings: "error"
-  };
-
-  return { ci };
-}
-
-export type RCGenerationMode = "minimal" | "ci" | "complete";
+export type RCGenerationMode = "minimal" | "ci" | "report" | "complete";
 
 /**
  * @example
  * generateDefaultRC("complete");
- * generateDefaultRC(["ci", "scanner"]); // minimal + ci + scanner
+ * generateDefaultRC(["ci", "report"]); // minimal + ci + report
  */
 export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = "minimal"): RC {
   const modes = new Set(typeof mode === "string" ? [mode] : mode);
@@ -84,6 +53,17 @@ export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = 
 
   return Object.assign(
     minimalRC,
-    complete || modes.has("ci") ? generateCIConfiguration() : {}
+    complete || modes.has("ci") ? generateCIConfiguration() : {},
+    complete || modes.has("report") ? generateReportConfiguration() : {}
   );
 }
+
+export {
+  generateCIConfiguration,
+  CiConfiguration,
+  CiWarnings,
+
+  generateReportConfiguration,
+  ReportConfiguration,
+  ReportChart
+};

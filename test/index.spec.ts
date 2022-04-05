@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 // Import Third-party Dependencies
 import { expect } from "chai";
 import Ajv from "ajv";
+import merge from "lodash.merge";
 
 // Import Internal Dependencies
 import * as RC from "../src/index.js";
@@ -23,12 +24,25 @@ describe("CONSTANTS", () => {
 });
 
 describe("JSON Schema", () => {
+  const kDummyPartialMandatoryRC: Partial<RC.RC> = {
+    report: {
+      title: "hello report",
+      logoUrl: "foobar"
+    }
+  };
+
   it("should export a valid JSON Schema", () => {
     const ajv = new Ajv();
     const validate = ajv.compile(RC.JSONSchema);
 
     expect(validate(generateDefaultRC())).equal(true);
-    expect(validate(generateDefaultRC("complete"))).equal(true);
+
+    const completeRC = merge(
+      generateDefaultRC("complete"),
+      kDummyPartialMandatoryRC
+    );
+    expect(validate(completeRC)).equal(true);
+
     expect(validate({ foo: "bar" })).equal(false);
   });
 
