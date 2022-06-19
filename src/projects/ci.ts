@@ -19,7 +19,7 @@ export interface CiConfiguration {
    * JS-X-Ray warnings configuration
    * @see https://github.com/NodeSecure/js-x-ray#warnings-legends-v20
    */
-  warnings?: CiWarnings | Record<jsxray.kindWithValue | "unsafe-import", CiWarnings>;
+  warnings?: CiWarnings | Record<jsxray.WarningName, CiWarnings>;
 }
 export type CiWarnings = "off" | "error" | "warning";
 
