@@ -111,6 +111,16 @@ export interface writePartialPayload {
 export type writeOptions = writeCompletePayload | writePartialPayload;
 ```
 
+### homedir(): string
+
+Dedicated directory for NodeSecure to store the configuration in the os HOME directory.
+
+```ts
+import * as RC from "@nodesecure/rc";
+
+const homedir = RC.homedir();
+```
+
 ### CONSTANTS
 
 ```ts
