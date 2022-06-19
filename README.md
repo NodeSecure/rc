@@ -49,13 +49,6 @@ const result = (
 assert.strictEqual(result, void 0);
 ```
 
-Get os HOME configuration directory
-```
-import * as RC from "@nodesecure/rc";
-
-const K_HOME_PATH = RC.homedir();
-```
-
 > 👀 .read and .write return Rust like [Result](https://doc.rust-lang.org/std/result/) object. Under the hood we use [ts-results](https://github.com/vultix/ts-results) to achieve this.
 
 ## API
