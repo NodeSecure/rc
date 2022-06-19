@@ -1,8 +1,13 @@
-// Import Types Dependencies
+// Import Node.js Dependencies
+import os from "node:os";
+import path from "node:path";
+
+// Import Third-party Dependencies
 import i18n from "@nodesecure/i18n";
 import * as vuln from "@nodesecure/vuln";
 
 // Import Internal Dependencies
+import { GLOBAL_CONFIGURATION_DIRECTORY } from "./constants.js";
 import { loadJSONSchemaSync } from "./schema/loader.js";
 import { generateCIConfiguration, CiConfiguration, CiWarnings } from "./projects/ci.js";
 import { generateReportConfiguration, ReportConfiguration, ReportChart } from "./projects/report.js";
@@ -56,6 +61,13 @@ export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = 
     complete || modes.has("ci") ? generateCIConfiguration() : {},
     complete || modes.has("report") ? generateReportConfiguration() : {}
   );
+}
+
+/**
+ * Dedicated directory for NodeSecure to store the configuration in the os HOME directory.
+ */
+export function homeDir(): string {
+  return path.join(os.homedir(), GLOBAL_CONFIGURATION_DIRECTORY);
 }
 
 export {
