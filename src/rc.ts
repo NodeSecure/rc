@@ -66,7 +66,7 @@ export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = 
 /**
  * Dedicated directory for NodeSecure to store the configuration in the os HOME directory.
  */
-export function homeDir(): string {
+export function homedir(): string {
   return path.join(os.homedir(), GLOBAL_CONFIGURATION_DIRECTORY);
 }
 
