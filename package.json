@@ -58,7 +58,7 @@
     "@nodesecure/vuln": "^1.7.0",
     "@slimio/config": "^1.0.1",
     "ts-results": "^3.3.0",
-    "type-fest": "^2.13.1"
+    "type-fest": "^2.18.0"
   },
   "tsd": {
     "directory": "test/types",
