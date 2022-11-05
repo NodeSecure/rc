@@ -1,6 +1,6 @@
 {
   "name": "@nodesecure/rc",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "NodeSecure runtime configuration",
   "exports": "./dist/index.js",
   "type": "module",
