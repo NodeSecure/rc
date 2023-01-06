@@ -4,6 +4,7 @@
 [![mit](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/NodeSecure/rc/blob/master/LICENSE)
 [![OpenSSF
 Scorecard](https://api.securityscorecards.dev/projects/github.com/NodeSecure/rc/badge)](https://api.securityscorecards.dev/projects/github.com/NodeSecure/rc)
+![build](https://img.shields.io/github/actions/workflow/status/NodeSecure/rc/main.yml)
 
 NodeSecure runtime configuration.
 
