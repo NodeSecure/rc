@@ -1,14 +1,16 @@
 # rc
-![version](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/NodeSecure/rc/master/package.json&query=$.version&label=Version)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/NodeSecure/rc/commit-activity)
-[![mit](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/NodeSecure/rc/blob/master/LICENSE)
+
+![version](https://img.shields.io/badge/dynamic/json.svg?style=for-the-badge&url=https://raw.githubusercontent.com/NodeSecure/rc/master/package.json&query=$.version&label=Version)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://github.com/NodeSecure/rc/commit-activity)
+[![mit](https://img.shields.io/github/license/Naereen/StrapDown.js.svg?style=for-the-badge)](https://github.com/NodeSecure/rc/blob/master/LICENSE)
 [![OpenSSF
-Scorecard](https://api.securityscorecards.dev/projects/github.com/NodeSecure/rc/badge)](https://api.securityscorecards.dev/projects/github.com/NodeSecure/rc)
-![build](https://img.shields.io/github/actions/workflow/status/NodeSecure/rc/main.yml)
+Scorecard](https://api.securityscorecards.dev/projects/github.com/NodeSecure/rc/badge?style=for-the-badge)](https://api.securityscorecards.dev/projects/github.com/NodeSecure/rc)
+![build](https://img.shields.io/github/actions/workflow/status/NodeSecure/rc/main.yml?style=for-the-badge)
 
 NodeSecure runtime configuration.
 
 ## Requirements
+
 - [Node.js](https://nodejs.org/en/) v16 or higher
 
 ## Getting Started
@@ -35,18 +37,17 @@ console.log(configurationPayload);
 ```
 
 Write:
+
 ```ts
 import assert from "node:assert/strict";
 import * as RC from "@nodesecure/rc";
 
 const writeOpts: RC.writeOptions = {
   payload: { version: "2.0.0" },
-  partialUpdate: true
+  partialUpdate: true,
 };
 
-const result = (
-  await RC.write(void 0, writeOpts)
-).unwrap();
+const result = (await RC.write(void 0, writeOpts)).unwrap();
 assert.strictEqual(result, void 0);
 ```
 
@@ -74,7 +75,10 @@ interface createReadOptions {
   createMode?: RCGenerationMode | RCGenerationMode[];
 }
 
-export type readOptions = RequireAtLeastOne<createReadOptions, "createIfDoesNotExist" | "createMode">;
+export type readOptions = RequireAtLeastOne<
+  createReadOptions,
+  "createIfDoesNotExist" | "createMode"
+>;
 ```
 
 The `createIfDoesNotExist` argument can be ignored if `createMode` is provided.
@@ -146,7 +150,7 @@ Note that you can combine several modes:
 ```ts
 import * as RC from "@nodesecure/rc";
 
-await RC.read(void 0, { createMode: ["ci", "report"] })
+await RC.read(void 0, { createMode: ["ci", "report"] });
 ```
 
 ## JSON Schema
@@ -154,6 +158,7 @@ await RC.read(void 0, { createMode: ["ci", "report"] })
 The runtime configuration is validated with a JSON Schema: `./src/schema/nodesecurerc.json`.
 
 It can be retrieved by API if required:
+
 ```ts
 import * as RC from "@nodesecure/rc";
 
@@ -163,7 +168,9 @@ console.log(RC.JSONSchema);
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -185,4 +192,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## License
+
 MIT
