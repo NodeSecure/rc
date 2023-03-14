@@ -61,6 +61,22 @@ const result = (await RC.write(void 0, writeOpts)).unwrap();
 assert.strictEqual(result, void 0);
 ```
 
+memoize/memoized:
+
+```ts
+import * as RC from "@nodesecure/rc";
+import assert from "node:assert";
+
+const configurationPayload = (
+    await RC.read(void 0, { createMode: "ci" })
+).unwrap()
+
+RC.memoize(configurationPayload, { overwrite: true });
+
+const memoizedPayload = RC.memoized();
+assert.deepEqual(configurationPayload, memoizedPayload);
+```
+
 > 👀 .read and .write return Rust like [Result](https://doc.rust-lang.org/std/result/) object. Under the hood we use [ts-results](https://github.com/vultix/ts-results) to achieve this.
 
 ## API
@@ -125,6 +141,27 @@ export interface writePartialPayload {
 
 export type writeOptions = writeCompletePayload | writePartialPayload;
 ```
+### memoize(payload: Partial<RC>, options: IMemoizeOptions = {}): void
+By default, the memory API overwrites the previous stored payload. When the `OVERWRITE` option is `false`, it merges new properties with existing properties.
+
+```ts
+export interface memoizeOptions {
+  /** * @default true */
+  overwrite?: boolean;
+}
+```
+The `overwrite` option is used to specify whether data should be overwritten or merged.
+
+### memoized(options: IMemoizedOptions): Partial<RC> | null
+This method returns null, when the default value is null, otherwise, it returns the current value of `memoizedValue`.
+
+```ts
+export interface memoizedOptions {
+  /** * @default null */
+  defaultValue: Partial<RC> | null;
+}
+```
+If the `defaultValue` property is at null, then this value will be returned when `memoized` is called.
 
 ### homedir(): string
 
