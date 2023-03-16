@@ -7,17 +7,19 @@ import { RC } from "../rc.js";
 let memoizedValue: Partial<RC> | null = null;
 
 export interface memoizeOptions {
-  /** * @default true */
+  /**
+   * If enabled it will overwrite (crush) the previous memoized RC
+   * @default true
+   */
   overwrite?: boolean;
 }
 
-export interface memoizedOptions {
-  /** * @default null */
-  defaultValue?: Partial<RC>;
-}
-
-export function memoize(payload: Partial<RC>, options: memoizeOptions = {}): void {
+export function memoize(
+  payload: Partial<RC>,
+  options: memoizeOptions = {}
+): void {
   const { overwrite = true } = options;
+
   if (memoizedValue === null || overwrite) {
     memoizedValue = payload;
   }
@@ -26,8 +28,14 @@ export function memoize(payload: Partial<RC>, options: memoizeOptions = {}): voi
   }
 }
 
-export function memoized(options: memoizedOptions = {}): Partial<RC> | null {
-  const { defaultValue = null } = options;
+export interface memoizedOptions {
+  defaultValue: Partial<RC>;
+}
+
+export function memoized(
+  options?: memoizedOptions
+): Partial<RC> | null {
+  const { defaultValue = null } = options ?? {};
 
   return memoizedValue ?? defaultValue;
 }

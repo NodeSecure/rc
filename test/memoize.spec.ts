@@ -5,62 +5,69 @@ import { expect } from "chai";
 import { generateDefaultRC, RC } from "../src/rc.js";
 import { memoize, memoized, clearMemoized } from "../src/index.js";
 
-let memoizedPayload: Partial<RC> | null = null;
-
-describe("memoize()", () => {
+describe("memoize", () => {
   beforeEach(() => {
-    memoizedPayload = null;
+    clearMemoized();
   });
 
   it("should store the payload in memory", () => {
     const payload = generateDefaultRC();
-    memoize(payload, { overwrite: false });
+    memoize(payload);
 
-    memoizedPayload = memoized();
-
-    expect(memoizedPayload).to.deep.equal(payload);
+    expect(memoized()).to.deep.equal(payload);
   });
 
   it("should overwrite the previous payload if the overwrite option is true", () => {
-    const payload = { version: "2.0.0", i18n: "french", strategy: "yarn" } as any;
+    memoize(generateDefaultRC());
+    const payload: Partial<RC> = {
+      version: "2.0.0",
+      i18n: "french",
+      strategy: "snyk"
+    };
     memoize(payload, { overwrite: true });
-    memoizedPayload = memoized();
 
-    expect(memoizedPayload).to.deep.equal(payload);
+    expect(memoized()).to.deep.equal(payload);
   });
 
   it("should merge with the previous memoized payload if overwrite option is set to false", () => {
     const rc = generateDefaultRC();
     memoize(rc, { overwrite: true });
 
-    const payload = { version: "2.0.0", i18n: "french", strategy: "yarn" } as any;
+    const payload: Partial<RC> = {
+      version: "2.0.0",
+      i18n: "french",
+      strategy: "snyk"
+    };
     memoize(payload, { overwrite: false });
-    memoizedPayload = memoized();
 
-    expect(memoizedPayload).to.deep.equal({ ...rc, ...payload });
+    expect(memoized()).to.deep.equal({ ...rc, ...payload });
   });
 });
-
 
 describe("memoized", () => {
   beforeEach(() => {
     clearMemoized();
-    memoizedPayload = null;
   });
 
-
-  it("must return the default value (null)", () => {
-    const result = memoized();
-
-    expect(result).to.deep.equal(memoizedPayload);
+  it("should return null when there is no memoized value", () => {
+    expect(memoized()).to.eq(null);
   });
 
-  it("should return previously remembered configuration", () => {
+  it("should return previously memoized RC", () => {
     const rc = generateDefaultRC();
+    memoize(rc);
 
-    memoize(rc, { overwrite: true });
-    memoizedPayload = memoized();
+    expect(memoized()).to.deep.equal(rc);
+  });
+});
 
-    expect(memoizedPayload).to.deep.equal(rc);
+describe("clearMemoized", () => {
+  it("should clear memoized value", () => {
+    const rc = generateDefaultRC();
+    memoize(rc);
+
+    expect(memoized()).to.not.equal(null);
+    clearMemoized();
+    expect(memoized()).to.equal(null);
   });
 });

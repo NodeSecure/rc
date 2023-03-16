@@ -35,7 +35,7 @@ $ yarn add @nodesecure/rc
 
 ## Usage example
 
-Read:
+read:
 
 ```ts
 import * as RC from "@nodesecure/rc";
@@ -46,7 +46,7 @@ const configurationPayload = (
 console.log(configurationPayload);
 ```
 
-Write:
+write:
 
 ```ts
 import assert from "node:assert/strict";
@@ -141,27 +141,28 @@ export interface writePartialPayload {
 
 export type writeOptions = writeCompletePayload | writePartialPayload;
 ```
-### memoize(payload: Partial<RC>, options: IMemoizeOptions = {}): void
+### memoize(payload: Partial< RC >, options: memoizeOptions = {}): void
 By default, the memory API overwrites the previous stored payload. When the `OVERWRITE` option is `false`, it merges new properties with existing properties.
 
 ```ts
 export interface memoizeOptions {
-  /** * @default true */
   overwrite?: boolean;
 }
 ```
 The `overwrite` option is used to specify whether data should be overwritten or merged.
 
-### memoized(options: IMemoizedOptions): Partial<RC> | null
+### memoized(options: memoizedOptions): Partial< RC > | null
 This method returns null, when the default value is null, otherwise, it returns the current value of `memoizedValue`.
 
 ```ts
 export interface memoizedOptions {
-  /** * @default null */
-  defaultValue: Partial<RC> | null;
+  defaultValue: Partial<RC>;
 }
 ```
 If the `defaultValue` property is at null, then this value will be returned when `memoized` is called.
+
+### clearMemoized(): void
+Clear/reset memoized RC
 
 ### homedir(): string
 
