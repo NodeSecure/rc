@@ -99,6 +99,12 @@ interface createReadOptions {
    * @default `minimal`
    */
   createMode?: RCGenerationMode | RCGenerationMode[];
+  /**
+   * RC automatic caching option. This option allows to cache a configuration passed in parameter.
+   *
+   * @default false
+   */
+  memoize?: boolean;
 }
 
 export type readOptions = RequireAtLeastOne<

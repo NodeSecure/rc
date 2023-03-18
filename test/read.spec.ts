@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import { expect } from "chai";
 
 // Import Internal Dependencies
-import { read, CONSTANTS } from "../src/index.js";
+import { read, CONSTANTS, memoized, memoize, clearMemoized } from "../src/index.js";
 import { generateDefaultRC } from "../src/rc.js";
 
 // CONSTANTS
@@ -64,5 +64,40 @@ describe("read .nodesecurerc", () => {
       i18n: "french",
       strategy: "none"
     });
+  });
+});
+
+describe("read | memoize option", () => {
+  const location = path.join(os.tmpdir(), "rcread");
+
+  before(async() => {
+    await fs.mkdir(location);
+  });
+
+  beforeEach(async() => {
+    clearMemoized();
+    await fs.rm(path.join(location, CONSTANTS.CONFIGURATION_NAME), { force: true });
+  });
+
+  after(async() => {
+    await fs.rm(location, { force: true, recursive: true });
+  });
+
+  it("should return the default value 'null' when the memoize option is not declared ", async() => {
+    await read(location, { createIfDoesNotExist: true });
+    expect(memoized()).to.eq(null);
+  });
+
+  it("should return the configuration passed in parameter", async() => {
+    await read(location, { createIfDoesNotExist: true, memoize: true });
+    expect(memoized()).to.deep.equal(generateDefaultRC());
+  });
+
+  it("must overwrite the previously stored payload", async() => {
+    await read(location, { createIfDoesNotExist: true, memoize: true });
+
+    memoize(generateDefaultRC("report"));
+
+    expect(memoized()).to.deep.equal(generateDefaultRC("report"));
   });
 });
