@@ -10,6 +10,7 @@ import { RequireAtLeastOne } from "type-fest";
 // Import Internal Dependencies
 import { RC, JSONSchema, generateDefaultRC, RCGenerationMode } from "../rc.js";
 import * as CONSTANTS from "../constants.js";
+import { memoize } from "./memoize.js";
 
 // CONSTANTS
 const { Ok, Err } = TR;
@@ -27,6 +28,13 @@ interface createReadOptions {
    * @default `minimal`
    */
   createMode?: RCGenerationMode | RCGenerationMode[];
+
+  /**
+   * RC automatic caching option. This option allows to cache a configuration passed in parameter.
+   *
+   * @default false
+   */
+  memoize?: boolean;
 }
 
 export type readOptions = RequireAtLeastOne<createReadOptions, "createIfDoesNotExist" | "createMode">;
@@ -36,7 +44,7 @@ export async function read(
   options: readOptions = Object.create(null)
 ): Promise<Result<RC, NodeJS.ErrnoException>> {
   try {
-    const { createIfDoesNotExist = Boolean(options.createMode), createMode } = options;
+    const { createIfDoesNotExist = Boolean(options.createMode), createMode, memoize: memoizeRc = false } = options;
 
     const cfgPath = path.join(location, CONSTANTS.CONFIGURATION_NAME);
     const cfg = new Config<RC>(cfgPath, {
@@ -49,6 +57,10 @@ export async function read(
       await once(cfg, "configWritten");
     }
     const result = cfg.payload;
+
+    if (memoizeRc) {
+      memoize(result);
+    }
 
     await cfg.close();
 
