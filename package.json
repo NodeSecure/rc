@@ -58,7 +58,7 @@
     "@slimio/config": "^1.2.0",
     "lodash.merge": "^4.6.2",
     "ts-results": "^3.3.0",
-    "tslib": "^2.4.1",
+    "tslib": "^2.5.2",
     "type-fest": "^3.6.1"
   },
   "tsd": {
