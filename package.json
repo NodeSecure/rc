@@ -55,10 +55,9 @@
     "@nodesecure/i18n": "^3.3.0",
     "@nodesecure/js-x-ray": "^6.1.1",
     "@nodesecure/vuln": "^1.7.0",
+    "@openally/result": "^1.2.0",
     "@slimio/config": "^1.2.0",
     "lodash.merge": "^4.6.2",
-    "ts-results": "^3.3.0",
-    "tslib": "^2.6.2",
     "type-fest": "^4.3.1"
   },
   "tsd": {

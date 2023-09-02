@@ -1,5 +1,5 @@
 // Import Third-party Dependencies
-import { Result } from "ts-results";
+import { Result } from "@openally/result";
 import { expectAssignable } from "tsd";
 
 // Import Internal Dependencies

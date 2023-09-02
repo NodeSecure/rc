@@ -77,7 +77,7 @@ const memoizedPayload = RC.memoized();
 assert.deepEqual(configurationPayload, memoizedPayload);
 ```
 
-> 👀 .read and .write return Rust like [Result](https://doc.rust-lang.org/std/result/) object. Under the hood we use [ts-results](https://github.com/vultix/ts-results) to achieve this.
+> 👀 .read and .write return Rust like [Result](https://doc.rust-lang.org/std/result/) object.
 
 ## API
 
