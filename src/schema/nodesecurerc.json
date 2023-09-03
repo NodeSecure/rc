@@ -25,6 +25,9 @@
       "default": "npm",
       "description": "Vulnerability strategy to use"
     },
+    "scanner": {
+      "$ref": "#/$defs/scanner"
+    },
     "ci": {
       "$ref": "#/$defs/ci"
     },

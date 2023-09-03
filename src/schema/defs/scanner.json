@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "flaggedAuthors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/author"
+      }
+    }
+  },
+  "additionalProperties": false
+}
