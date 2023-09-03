@@ -3,15 +3,11 @@ import path from "path";
 
 // Import Third-party Dependencies
 import Config from "@slimio/config";
-import TR, { Result } from "ts-results";
+import { Ok, Err, Result } from "@openally/result";
 
 // Import Internal Dependencies
 import { RC, JSONSchema } from "../rc.js";
 import * as CONSTANTS from "../constants.js";
-
-// CONSTANTS
-const { Ok, Err } = TR;
-
 /**
  * Overwrite the complete payload. partialUpdate property is mandatory.
  */
@@ -48,9 +44,9 @@ export async function write(
 
     await cfg.close();
 
-    return new Ok(void 0);
+    return Ok(void 0);
   }
   catch (error) {
-    return new Err(error as NodeJS.ErrnoException);
+    return Err(error as NodeJS.ErrnoException);
   }
 }

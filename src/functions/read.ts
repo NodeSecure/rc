@@ -4,16 +4,13 @@ import { once } from "node:events";
 
 // Import Third-party Dependencies
 import Config from "@slimio/config";
-import TR, { Result } from "ts-results";
+import { Ok, Err, Result } from "@openally/result";
 import { RequireAtLeastOne } from "type-fest";
 
 // Import Internal Dependencies
 import { RC, JSONSchema, generateDefaultRC, RCGenerationMode } from "../rc.js";
 import * as CONSTANTS from "../constants.js";
 import { memoize } from "./memoize.js";
-
-// CONSTANTS
-const { Ok, Err } = TR;
 
 interface createReadOptions {
   /**
@@ -64,9 +61,9 @@ export async function read(
 
     await cfg.close();
 
-    return new Ok(result);
+    return Ok(result);
   }
   catch (error) {
-    return new Err(error as NodeJS.ErrnoException);
+    return Err(error as NodeJS.ErrnoException);
   }
 }
