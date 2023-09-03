@@ -62,7 +62,8 @@ describe("read .nodesecurerc", () => {
     expect(result.val).deep.equal({
       version: "2.1.0",
       i18n: "french",
-      strategy: "none"
+      strategy: "none",
+      registry: "https://registry.npmjs.org"
     });
   });
 });
