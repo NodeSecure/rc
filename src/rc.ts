@@ -9,8 +9,10 @@ import * as vuln from "@nodesecure/vuln";
 // Import Internal Dependencies
 import { GLOBAL_CONFIGURATION_DIRECTORY } from "./constants.js";
 import { loadJSONSchemaSync } from "./schema/loader.js";
+
 import { generateCIConfiguration, CiConfiguration, CiWarnings } from "./projects/ci.js";
 import { generateReportConfiguration, ReportConfiguration, ReportChart } from "./projects/report.js";
+import { generateScannerConfiguration, ScannerConfiguration, Author } from "./projects/scanner.js";
 
 // CONSTANTS
 export const JSONSchema = loadJSONSchemaSync();
@@ -33,13 +35,15 @@ export interface RC {
    * @default `npm`
    */
   strategy?: vuln.Strategy.Kind;
+  /** NodeSecure scanner Object configuration */
+  scanner?: ScannerConfiguration;
   /** NodeSecure ci Object configuration */
   ci?: CiConfiguration;
   /** NodeSecure report Object configuration */
   report?: ReportConfiguration;
 }
 
-export type RCGenerationMode = "minimal" | "ci" | "report" | "complete";
+export type RCGenerationMode = "minimal" | "ci" | "report" | "scanner" | "complete";
 
 /**
  * @example
@@ -59,7 +63,8 @@ export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = 
   return Object.assign(
     minimalRC,
     complete || modes.has("ci") ? generateCIConfiguration() : {},
-    complete || modes.has("report") ? generateReportConfiguration() : {}
+    complete || modes.has("report") ? generateReportConfiguration() : {},
+    complete || modes.has("scanner") ? generateScannerConfiguration() : {}
   );
 }
 
@@ -77,5 +82,9 @@ export {
 
   generateReportConfiguration,
   ReportConfiguration,
-  ReportChart
+  ReportChart,
+
+  generateScannerConfiguration,
+  ScannerConfiguration,
+  Author
 };

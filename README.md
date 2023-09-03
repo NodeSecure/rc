@@ -194,7 +194,7 @@ assert.strictEqual(RC.CONSTANTS.CONFIGURATION_NAME, ".nodesecurerc");
 We provide by default a configuration generation that we consider `minimal`. On the contrary, a `complete` value will indicate the generation with all possible default keys.
 
 ```ts
-export type RCGenerationMode = "minimal" | "ci" | "report" | "complete";
+export type RCGenerationMode = "minimal" | "ci" | "report" | "scanner" | "complete";
 ```
 
 However, depending on the NodeSecure tool you are working on, it can be interesting to generate a configuration with some property sets specific to your needs.

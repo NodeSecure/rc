@@ -5,7 +5,8 @@ import { expect } from "chai";
 import {
   generateDefaultRC,
   generateCIConfiguration,
-  generateReportConfiguration
+  generateReportConfiguration,
+  generateScannerConfiguration
 } from "../src/rc.js";
 
 describe("generateDefaultRC (internals)", () => {
@@ -31,13 +32,25 @@ describe("generateDefaultRC (internals)", () => {
     expect(rc).deep.equal(expectedResult);
   });
 
+  it(`should generate a RC with argument 'mode' equal 'scanner' and
+  then return an RC combining Default + ScannerConfiguration`, () => {
+    const rc = generateDefaultRC("scanner");
+    const expectedResult = Object.assign(
+      generateDefaultRC(),
+      generateScannerConfiguration()
+    );
+
+    expect(rc).deep.equal(expectedResult);
+  });
+
   it(`should generate a RC with argument 'mode' equal an Array ['complete'] and
   then return an RC combining all kind of available configurations internally`, () => {
     const rc = generateDefaultRC(["complete"]);
     const expectedResult = Object.assign(
       generateDefaultRC(),
       generateCIConfiguration(),
-      generateReportConfiguration()
+      generateReportConfiguration(),
+      generateScannerConfiguration()
     );
 
     expect(rc).deep.equal(expectedResult);
