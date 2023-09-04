@@ -167,6 +167,17 @@ export interface memoizedOptions {
 ```
 If the `defaultValue` property is at null, then this value will be returned when `memoized` is called.
 
+### maybeMemoized(): Option< Partial< RC > >
+
+Same as memoized but return an Option monad.
+
+```ts
+import * as RC from "@nodesecure/rc";
+
+const memoized = RC.maybeMemoized()
+  .unwrapOr({}); // Some default RC here
+```
+
 ### clearMemoized(): void
 Clear/reset memoized RC
 

@@ -1,5 +1,6 @@
 // Import Third-party Dependencies
 import merge from "lodash.merge";
+import { Some, None, Option } from "@openally/result";
 
 // Import Internal Dependencies
 import { RC } from "../rc.js";
@@ -38,6 +39,12 @@ export function memoized(
   const { defaultValue = null } = options ?? {};
 
   return memoizedValue ?? defaultValue;
+}
+
+export function maybeMemoized(): Option<Partial<RC>> {
+  return memoizedValue === null ?
+    None :
+    Some(memoizedValue);
 }
 
 export function clearMemoized(): void {
