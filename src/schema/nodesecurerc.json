@@ -25,6 +25,12 @@
       "default": "npm",
       "description": "Vulnerability strategy to use"
     },
+    "registry": {
+      "type": "string",
+      "description": "Package Registry (default to NPM public registry)",
+      "pattern": "^(https?|http?)://",
+      "default": "https://registry.npmjs.org"
+    },
     "scanner": {
       "$ref": "#/$defs/scanner"
     },

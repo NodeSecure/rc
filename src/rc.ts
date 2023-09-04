@@ -35,6 +35,11 @@ export interface RC {
    * @default `npm`
    */
   strategy?: vuln.Strategy.Kind;
+  /**
+   * Package Registry (default to NPM public registry)
+   * @default `https://registry.npmjs.org`
+   */
+  registry?: string;
   /** NodeSecure scanner Object configuration */
   scanner?: ScannerConfiguration;
   /** NodeSecure ci Object configuration */
@@ -56,7 +61,8 @@ export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = 
   const minimalRC = {
     version: "1.0.0",
     i18n: "english" as const,
-    strategy: "npm" as const
+    strategy: "npm" as const,
+    registry: "https://registry.npmjs.org"
   };
   const complete = modes.has("complete");
 
