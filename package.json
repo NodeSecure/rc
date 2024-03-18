@@ -52,7 +52,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@nodesecure/i18n": "^3.3.0",
+    "@nodesecure/i18n": "^4.0.0",
     "@nodesecure/js-x-ray": "^6.1.1",
     "@nodesecure/vuln": "^1.7.0",
     "@openally/result": "^1.2.0",
