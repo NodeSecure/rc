@@ -2,9 +2,10 @@
 import path from "node:path";
 import { readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import assert from "node:assert";
+import { describe, it } from "node:test";
 
 // Import Third-party Dependencies
-import { expect } from "chai";
 import Ajv from "ajv";
 import merge from "lodash.merge";
 
@@ -18,8 +19,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe("CONSTANTS", () => {
   it("should export a CONSTANTS variable", () => {
-    expect("CONSTANTS" in RC).equal(true);
-    expect(RC.CONSTANTS.CONFIGURATION_NAME).equal(".nodesecurerc");
+    assert("CONSTANTS" in RC);
+    assert.equal(RC.CONSTANTS.CONFIGURATION_NAME, ".nodesecurerc");
   });
 });
 
@@ -35,15 +36,15 @@ describe("JSON Schema", () => {
     const ajv = new Ajv();
     const validate = ajv.compile(RC.JSONSchema);
 
-    expect(validate(generateDefaultRC())).equal(true);
+    assert(validate(generateDefaultRC()));
 
     const completeRC = merge(
       generateDefaultRC("complete"),
       kDummyPartialMandatoryRC
     );
-    expect(validate(completeRC)).equal(true);
+    assert(validate(completeRC));
 
-    expect(validate({ foo: "bar" })).equal(false);
+    assert(!validate({ foo: "bar" }));
   });
 
   it("should validate all fixtures configuration", async() => {
@@ -57,10 +58,10 @@ describe("JSON Schema", () => {
 
     for (const fileLocation of configurationFiles) {
       const json = readJSONSync(fileLocation);
-      expect(
+      assert(
         validate(json),
         `Should be able to validate RC '${fileLocation}'`
-      ).equal(true);
+      );
     }
   });
 });

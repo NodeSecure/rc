@@ -1,5 +1,6 @@
-// Import Third-party Dependencies
-import { expect } from "chai";
+// Import Node.js Dependencies
+import assert from "node:assert";
+import { describe, beforeEach, it } from "node:test";
 
 // Import Internal Dependencies
 import { generateDefaultRC, RC } from "../src/rc.js";
@@ -14,7 +15,7 @@ describe("memoize", () => {
     const payload = generateDefaultRC();
     memoize(payload);
 
-    expect(memoized()).to.deep.equal(payload);
+    assert.deepEqual(memoized(), payload);
   });
 
   it("should overwrite the previous payload if the overwrite option is true", () => {
@@ -26,7 +27,7 @@ describe("memoize", () => {
     };
     memoize(payload, { overwrite: true });
 
-    expect(memoized()).to.deep.equal(payload);
+    assert.deepEqual(memoized(), payload);
   });
 
   it("should merge with the previous memoized payload if overwrite option is set to false", () => {
@@ -40,7 +41,7 @@ describe("memoize", () => {
     };
     memoize(payload, { overwrite: false });
 
-    expect(memoized()).to.deep.equal({ ...rc, ...payload });
+    assert.deepEqual(memoized(), { ...rc, ...payload });
   });
 });
 
@@ -50,14 +51,14 @@ describe("memoized", () => {
   });
 
   it("should return null when there is no memoized value", () => {
-    expect(memoized()).to.eq(null);
+    assert.equal(memoized(), null);
   });
 
   it("should return previously memoized RC", () => {
     const rc = generateDefaultRC();
     memoize(rc);
 
-    expect(memoized()).to.deep.equal(rc);
+    assert.deepEqual(memoized(), rc);
   });
 });
 
@@ -68,8 +69,8 @@ describe("maybeMemoized", () => {
 
   it("should return None when there is no memoized value", () => {
     const option = maybeMemoized();
-    expect(option.none).to.eq(true);
-    expect(option.unwrapOr(null)).to.eq(null);
+    assert(option.none);
+    assert.equal(option.unwrapOr(null), null);
   });
 
   it("should unwrap previously memoized RC", () => {
@@ -77,8 +78,8 @@ describe("maybeMemoized", () => {
     memoize(rc);
 
     const option = maybeMemoized();
-    expect(option.some).to.eq(true);
-    expect(option.unwrap()).to.deep.equal(rc);
+    assert(option.some);
+    assert.deepEqual(option.unwrap(), rc);
   });
 });
 
@@ -87,8 +88,8 @@ describe("clearMemoized", () => {
     const rc = generateDefaultRC();
     memoize(rc);
 
-    expect(memoized()).to.not.equal(null);
+    assert.notEqual(memoized(), null);
     clearMemoized();
-    expect(memoized()).to.equal(null);
+    assert.equal(memoized(), null);
   });
 });
