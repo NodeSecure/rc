@@ -48,7 +48,7 @@
     "mocha": "^10.2.0",
     "tape": "^5.6.6",
     "ts-node": "^10.9.1",
-    "tsd": "^0.30.7",
+    "tsd": "^0.31.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
