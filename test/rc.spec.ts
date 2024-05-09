@@ -1,5 +1,6 @@
-// Import Third-party Dependencies
-import { expect } from "chai";
+// Import Node.js Dependencies
+import { describe, it } from "node:test";
+import assert from "node:assert";
 
 // Import Internal Dependencies
 import {
@@ -18,7 +19,7 @@ describe("generateDefaultRC (internals)", () => {
       generateCIConfiguration()
     );
 
-    expect(rc).deep.equal(expectedResult);
+    assert.deepEqual(rc, expectedResult);
   });
 
   it(`should generate a RC with argument 'mode' equal 'report' and
@@ -29,7 +30,7 @@ describe("generateDefaultRC (internals)", () => {
       generateReportConfiguration()
     );
 
-    expect(rc).deep.equal(expectedResult);
+    assert.deepEqual(rc, expectedResult);
   });
 
   it(`should generate a RC with argument 'mode' equal 'scanner' and
@@ -40,7 +41,7 @@ describe("generateDefaultRC (internals)", () => {
       generateScannerConfiguration()
     );
 
-    expect(rc).deep.equal(expectedResult);
+    assert.deepEqual(rc, expectedResult);
   });
 
   it(`should generate a RC with argument 'mode' equal an Array ['complete'] and
@@ -53,6 +54,6 @@ describe("generateDefaultRC (internals)", () => {
       generateScannerConfiguration()
     );
 
-    expect(rc).deep.equal(expectedResult);
+    assert.deepEqual(rc, expectedResult);
   });
 });
