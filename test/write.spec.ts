@@ -2,9 +2,8 @@
 import * as fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
-
-// Import Third-party Dependencies
-import { expect } from "chai";
+import assert from "node:assert";
+import { describe, it, before, beforeEach, after } from "node:test"
 
 // Import Internal Dependencies
 import { read, write, CONSTANTS } from "../src/index.js";
@@ -32,34 +31,34 @@ describe("write and/or update .nodesecurerc", () => {
     const payload = { ...generateDefaultRC(), version: "4.5.2" };
     const result = await write(location, { payload });
 
-    expect(result.ok).equal(false);
+    assert(!result.ok);
 
     const nodejsError = result.val as NodeJS.ErrnoException;
-    expect(nodejsError instanceof Error).equal(true);
-    expect(nodejsError.code).equal("ENOENT");
+    assert(nodejsError instanceof Error);
+    assert.equal(nodejsError.code, "ENOENT");
   });
 
   it("should fail to write because the payload is not matching the JSON Schema", async() => {
     const payload = { foo: "bar" } as any;
     const result = await write(location, { payload });
 
-    expect(result.ok).equal(false);
+    assert(!result.ok);
 
     const value = result.val as Error;
-    expect(value instanceof Error).equal(true);
-    expect(value.message.includes("must have required property 'version'")).equal(true);
+    assert(value instanceof Error);
+    assert(value.message.includes("must have required property 'version'"));
   });
 
   it("should rewrite a complete payload (content of .nodesecurerc)", async() => {
     const payload = { ...generateDefaultRC(), version: "4.5.2" };
 
     const writeResult = await write(location, { payload });
-    expect(writeResult.ok).equal(true);
-    expect(writeResult.val).equal(void 0);
+    assert(writeResult.ok);
+    assert.equal(writeResult.val, void 0);
 
     const readResult = await read(location, { createIfDoesNotExist: false });
-    expect(readResult.ok).equal(true);
-    expect(readResult.val).deep.equal(payload);
+    assert(readResult.ok);
+    assert.deepEqual(readResult.val, payload);
   });
 
   it("should partially update payload (content of .nodesecurerc)", async() => {
@@ -67,11 +66,11 @@ describe("write and/or update .nodesecurerc", () => {
     const payload = { i18n: "french" as const };
 
     const writeResult = await write(location, { payload, partialUpdate: true });
-    expect(writeResult.ok).equal(true);
-    expect(writeResult.val).equal(void 0);
+    assert(writeResult.ok);
+    assert.equal(writeResult.val, void 0);
 
     const readResult = await read(location, { createIfDoesNotExist: false });
-    expect(readResult.ok).equal(true);
-    expect(readResult.val).deep.equal({ ...defaultRC, ...payload });
+    assert(readResult.ok);
+    assert.deepEqual(readResult.val, { ...defaultRC, ...payload });
   });
 });

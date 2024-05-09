@@ -3,11 +3,9 @@ import * as fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
+import assert from "node:assert";
+import { describe, before, beforeEach, it, after } from "node:test";
 
-// Import Third-party Dependencies
-import { expect } from "chai";
-
-// Import Internal Dependencies
 import { read, CONSTANTS, memoized, memoize, clearMemoized } from "../src/index.js";
 import { generateDefaultRC } from "../src/rc.js";
 
@@ -33,33 +31,33 @@ describe("read .nodesecurerc", () => {
   it("should return a Node.js ENOENT Error because there is no .nodesecurerc file at the given location", async() => {
     const result = await read(location);
 
-    expect(result.ok).equal(false);
+    assert(!result.ok);
 
     const nodejsError = result.val as NodeJS.ErrnoException;
-    expect(nodejsError instanceof Error).equal(true);
-    expect(nodejsError.code).equal("ENOENT");
+    assert(nodejsError instanceof Error);
+    assert.equal(nodejsError.code, "ENOENT");
   });
 
   it("should read and create a new .nodesecurerc file because there is none at the given location", async() => {
     const result = await read(location, { createIfDoesNotExist: true });
 
-    expect(result.ok).equal(true);
-    expect(result.val).deep.equal(generateDefaultRC());
+    assert(result.ok);
+    assert.deepEqual(result.val, generateDefaultRC());
   });
 
   it("should read and create a new .nodesecurerc with createMode equal to 'ci'", async() => {
     const result = await read(location, { createMode: "ci" });
 
-    expect(result.ok).equal(true);
-    expect(result.val).deep.equal(generateDefaultRC("ci"));
+    assert(result.ok);
+    assert.deepEqual(result.val, generateDefaultRC("ci"));
   });
 
   it("should read fixtures/.nodesecurerc file", async() => {
     await read(location, { createIfDoesNotExist: true });
     const result = await read(fixtures, { createIfDoesNotExist: false });
 
-    expect(result.ok).equal(true);
-    expect(result.val).deep.equal({
+    assert(result.ok);
+    assert.deepEqual(result.val, {
       version: "2.1.0",
       i18n: "french",
       strategy: "none",
@@ -86,12 +84,12 @@ describe("read | memoize option", () => {
 
   it("should return the default value 'null' when the memoize option is not declared ", async() => {
     await read(location, { createIfDoesNotExist: true });
-    expect(memoized()).to.eq(null);
+    assert.equal(memoized(), null);
   });
 
   it("should return the configuration passed in parameter", async() => {
     await read(location, { createIfDoesNotExist: true, memoize: true });
-    expect(memoized()).to.deep.equal(generateDefaultRC());
+    assert.deepEqual(memoized(), generateDefaultRC());
   });
 
   it("must overwrite the previously stored payload", async() => {
@@ -99,6 +97,6 @@ describe("read | memoize option", () => {
 
     memoize(generateDefaultRC("report"));
 
-    expect(memoized()).to.deep.equal(generateDefaultRC("report"));
+    assert.deepEqual(memoized(), generateDefaultRC("report"));
   });
 });
