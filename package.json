@@ -52,7 +52,7 @@
     "@nodesecure/i18n": "^4.0.0",
     "@nodesecure/js-x-ray": "^7.0.0",
     "@nodesecure/vuln": "^1.7.0",
-    "@openally/result": "^1.2.0",
+    "@openally/result": "^1.2.1",
     "@slimio/config": "^1.2.0",
     "lodash.merge": "^4.6.2",
     "type-fest": "^4.3.1"
