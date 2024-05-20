@@ -47,7 +47,25 @@ describe("JSON Schema", () => {
     assert(!validate({ foo: "bar" }));
   });
 
-  it("should validate all fixtures configuration", async() => {
+  it("logoUrl should be optional", () => {
+    const withoutLogoUrl: Partial<RC.RC> = {
+      report: {
+        title: "hello report"
+      }
+    };
+    const ajv = new Ajv();
+    const validate = ajv.compile(RC.JSONSchema);
+
+    assert(validate(generateDefaultRC()));
+
+    const completeRC = merge(
+      generateDefaultRC("complete"),
+      withoutLogoUrl
+    );
+    assert(validate(completeRC));
+  });
+
+  it("should validate all fixtures configuration", () => {
     const ajv = new Ajv();
     const validate = ajv.compile(RC.JSONSchema);
 
