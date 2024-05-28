@@ -87,6 +87,10 @@
         "pdf"
       ]
     },
+    "showFlags": {
+      "type": "boolean",
+      "default": true
+    },
     "charts": {
       "type": "array",
       "items": {

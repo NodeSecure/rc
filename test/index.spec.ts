@@ -65,6 +65,23 @@ describe("JSON Schema", () => {
     assert(validate(completeRC));
   });
 
+  it("showFlags should be true by default", () => {
+    const withoutshowFlags: Partial<RC.RC> = {
+      report: {
+        title: "hello report"
+      }
+    };
+    const ajv = new Ajv({ useDefaults: true });
+    const validate = ajv.compile(RC.JSONSchema);
+
+    const completeRC = merge(
+      generateDefaultRC("complete"),
+      withoutshowFlags
+    );
+    validate(completeRC);
+    assert.strictEqual(completeRC.report!.showFlags, true);
+  });
+
   it("should validate all fixtures configuration", () => {
     const ajv = new Ajv();
     const validate = ajv.compile(RC.JSONSchema);
