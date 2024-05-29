@@ -41,6 +41,11 @@ export interface ReportConfiguration {
    * @default html,pdf
    */
   reporters?: ("html" | "pdf")[];
+  /**
+   * Show/Hide flags emojis next to packages.
+   * @default true
+   */
+  showFlags?: boolean;
   charts?: ReportChart[];
 }
 
