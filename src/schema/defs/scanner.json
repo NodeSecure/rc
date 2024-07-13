@@ -1,11 +1,18 @@
 {
   "type": "object",
   "properties": {
-    "flaggedAuthors": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/author"
-      }
+    "highlight": {
+      "type": "object",
+      "properties": {
+        "contacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contact"
+          }
+        }
+      },
+      "required": ["contacts"],
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

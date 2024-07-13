@@ -6,8 +6,11 @@
     },
     "email": {
       "type": "string"
+    },
+    "url": {
+      "type": "string"
     }
   },
-  "required": ["name", "email"],
+  "required": ["name"],
   "additionalProperties": false
 }
