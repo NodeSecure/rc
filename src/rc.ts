@@ -10,9 +10,20 @@ import * as vuln from "@nodesecure/vuln";
 import { GLOBAL_CONFIGURATION_DIRECTORY } from "./constants.js";
 import { loadJSONSchemaSync } from "./schema/loader.js";
 
-import { generateCIConfiguration, type CiConfiguration, type CiWarnings } from "./projects/ci.js";
-import { generateReportConfiguration, type ReportConfiguration, type ReportChart } from "./projects/report.js";
-import { generateScannerConfiguration, type ScannerConfiguration, type Author } from "./projects/scanner.js";
+import {
+  generateCIConfiguration,
+  type CiConfiguration,
+  type CiWarnings
+} from "./projects/ci.js";
+import {
+  generateReportConfiguration,
+  type ReportConfiguration,
+  type ReportChart
+} from "./projects/report.js";
+import {
+  generateScannerConfiguration,
+  type ScannerConfiguration
+} from "./projects/scanner.js";
 
 // CONSTANTS
 export const JSONSchema = loadJSONSchemaSync();
@@ -91,6 +102,5 @@ export {
   ReportChart,
 
   generateScannerConfiguration,
-  ScannerConfiguration,
-  Author
+  ScannerConfiguration
 };
