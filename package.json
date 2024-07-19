@@ -49,7 +49,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@nodesecure/i18n": "^4.0.0",
+    "@nodesecure/i18n": "^4.0.1",
     "@nodesecure/js-x-ray": "^7.0.0",
     "@nodesecure/npm-types": "^1.0.0",
     "@nodesecure/vuln": "^1.7.0",
