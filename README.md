@@ -81,26 +81,27 @@ assert.deepEqual(configurationPayload, memoizedPayload);
 
 ## API
 
-> If `undefined` the location will be assigned to `process.cwd()`.
+> [!NOTE]
+> If `undefined`, the location will be assigned to `process.cwd()`.
 
 ### read(location?: string, options?: readOptions): Promise< Result< RC, NodeJS.ErrnoException > >
 
 ```ts
 interface createReadOptions {
   /**
-   * If enabled the file will be created if it does not exist on the disk.
+   * If enabled, the file will be created if it does not exist on disk.
    *
    * @default false
    */
   createIfDoesNotExist?: boolean;
   /**
-   * RC Generation mode. This option allows to generate a more or less complete configuration for some NodeSecure tools.
+   * Generate a more or less complete configuration.
    *
    * @default `minimal`
    */
   createMode?: RCGenerationMode | RCGenerationMode[];
   /**
-   * RC automatic caching option. This option allows to cache a configuration passed in parameter.
+   * Automatically cache the configuration when enabled.
    *
    * @default false
    */
@@ -220,15 +221,24 @@ await RC.read(void 0, { createMode: ["ci", "report"] });
 
 ## JSON Schema
 
-The runtime configuration is validated with a JSON Schema: `./src/schema/nodesecurerc.json`.
+The runtime configuration is validated using a JSON Schema: `./src/schema/nodesecurerc.json`.
 
-It can be retrieved by API if required:
+It can be retrieved via API if needed:
 
 ```ts
 import * as RC from "@nodesecure/rc";
 
 console.log(RC.JSONSchema);
 ```
+
+The JSON schema is a composition of multiple definitions for each tool:
+
+- [ci](./src/schema/defs/ci.json)
+  - [ciWarnings](./src/schema/defs/ciWarnings.json)
+  - [contact](./src/schema/defs/contact.json)
+- [report](./src/schema/defs/report.json)
+  - [reportChart](./src/schema/defs/reportChart.json)
+- [scanner](./src/schema/defs/scanner.json)
 
 ## Contributors ✨
 
