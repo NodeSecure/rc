@@ -3,7 +3,7 @@ import path from "node:path";
 import { once } from "node:events";
 
 // Import Third-party Dependencies
-import Config from "@slimio/config";
+import { AsynchronousConfig } from "@openally/config";
 import { Ok, Err, Result } from "@openally/result";
 import { RequireAtLeastOne } from "type-fest";
 
@@ -44,8 +44,8 @@ export async function read(
     const { createIfDoesNotExist = Boolean(options.createMode), createMode, memoize: memoizeRc = false } = options;
 
     const cfgPath = path.join(location, CONSTANTS.CONFIGURATION_NAME);
-    const cfg = new Config<RC>(cfgPath, {
-      defaultSchema: JSONSchema,
+    const cfg = new AsynchronousConfig<RC>(cfgPath, {
+      jsonSchema: JSONSchema,
       createOnNoEntry: createIfDoesNotExist
     });
 
