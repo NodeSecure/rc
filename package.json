@@ -44,18 +44,18 @@
     "c8": "^10.1.2",
     "glob": "^11.0.0",
     "tsd": "^0.31.0",
-    "tsx": "^4.9.3",
-    "typescript": "^5.2.2"
+    "tsx": "^4.16.3",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@nodesecure/i18n": "^4.0.0",
-    "@nodesecure/js-x-ray": "^7.0.0",
+    "@nodesecure/i18n": "^4.0.1",
+    "@nodesecure/js-x-ray": "^7.3.0",
     "@nodesecure/npm-types": "^1.0.0",
     "@nodesecure/vuln": "^1.7.0",
     "@openally/result": "^1.2.1",
     "@slimio/config": "^1.2.0",
     "lodash.merge": "^4.6.2",
-    "type-fest": "^4.15.0"
+    "type-fest": "^4.23.0"
   },
   "tsd": {
     "directory": "test/types",
