@@ -2,7 +2,7 @@
 import path from "path";
 
 // Import Third-party Dependencies
-import Config from "@slimio/config";
+import { AsynchronousConfig } from "@openally/config";
 import { Ok, Err, Result } from "@openally/result";
 
 // Import Internal Dependencies
@@ -34,8 +34,8 @@ export async function write(
     const { payload, partialUpdate = false } = options;
 
     const cfgPath = path.join(location, CONSTANTS.CONFIGURATION_NAME);
-    const cfg = new Config<RC>(cfgPath, {
-      defaultSchema: JSONSchema
+    const cfg = new AsynchronousConfig<RC>(cfgPath, {
+      jsonSchema: JSONSchema
     });
     await cfg.read();
 
