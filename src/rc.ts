@@ -4,7 +4,7 @@ import path from "node:path";
 
 // Import Third-party Dependencies
 import i18n from "@nodesecure/i18n";
-import * as vuln from "@nodesecure/vuln";
+import * as vulnera from "@nodesecure/vulnera";
 
 // Import Internal Dependencies
 import { GLOBAL_CONFIGURATION_DIRECTORY } from "./constants.js";
@@ -43,9 +43,9 @@ export interface RC {
    * Vulnerability strategy to use. Can be disabled by using `none` as value.
    * @see https://github.com/NodeSecure/vuln#available-strategy
    *
-   * @default `npm`
+   * @default `github-advisory`
    */
-  strategy?: vuln.Strategy.Kind;
+  strategy?: vulnera.Kind;
   /**
    * Package Registry (default to NPM public registry)
    * @default `https://registry.npmjs.org`
@@ -66,13 +66,15 @@ export type RCGenerationMode = "minimal" | "ci" | "report" | "scanner" | "comple
  * generateDefaultRC("complete");
  * generateDefaultRC(["ci", "report"]); // minimal + ci + report
  */
-export function generateDefaultRC(mode: RCGenerationMode | RCGenerationMode[] = "minimal"): RC {
+export function generateDefaultRC(
+  mode: RCGenerationMode | RCGenerationMode[] = "minimal"
+): RC {
   const modes = new Set(typeof mode === "string" ? [mode] : mode);
 
   const minimalRC = {
     version: "1.0.0",
     i18n: "english" as const,
-    strategy: "npm" as const,
+    strategy: "github-advisory" as const,
     registry: "https://registry.npmjs.org"
   };
   const complete = modes.has("complete");
