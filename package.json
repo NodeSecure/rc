@@ -51,7 +51,7 @@
     "@nodesecure/i18n": "^4.0.1",
     "@nodesecure/js-x-ray": "^7.3.0",
     "@nodesecure/npm-types": "^1.0.0",
-    "@nodesecure/vuln": "^1.7.0",
+    "@nodesecure/vulnera": "^2.0.1",
     "@openally/config": "^1.0.1",
     "@openally/result": "^1.2.1",
     "lodash.merge": "^4.6.2",

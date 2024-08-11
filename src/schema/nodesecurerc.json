@@ -17,12 +17,12 @@
     "strategy": {
       "type": "string",
       "enum": [
-        "npm",
-        "node",
+        "github-advisory",
+        "sonatype",
         "snyk",
         "none"
       ],
-      "default": "npm",
+      "default": "github-advisory",
       "description": "Vulnerability strategy to use"
     },
     "registry": {
