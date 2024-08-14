@@ -1,21 +1,5 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/4438263/216045720-779bf16d-1d35-409f-a0e6-4019bda8edde.jpg" alt="@nodesecure/rc">
-</p>
-
-<p align="center">
-    <a href="https://github.com/NodeSecure/rc">
-      <img src="https://img.shields.io/badge/dynamic/json.svg?style=for-the-badge&url=https://raw.githubusercontent.com/NodeSecure/rc/master/package.json&query=$.version&label=Version" alt="npm version">
-    </a>
-    <a href="https://github.com/NodeSecure/rc/blob/master/LICENSE">
-      <img src="https://img.shields.io/github/license/NodeSecure/rc.svg?style=for-the-badge" alt="license">
-    </a>
-    <a href="https://api.securityscorecards.dev/projects/github.com/NodeSecure/rc">
-      <img src="https://api.securityscorecards.dev/projects/github.com/NodeSecure/rc/badge?style=for-the-badge" alt="ossf scorecard">
-    </a>
-    <a href="https://github.com/NodeSecure/rc/actions?query=workflow%3A%22Node.js+CI%22">
-      <img src="https://img.shields.io/github/actions/workflow/status/NodeSecure/rc/main.yml?style=for-the-badge" alt="github ci workflow">
-    </a>
-</p>
+> [!CAUTION]
+> This project (package) has been migrated to [Scanner](https://github.com/NodeSecure/scanner) monorepo, [here](https://github.com/NodeSecure/scanner/tree/master/workspaces/rc)
 
 NodeSecure runtime configuration.
 
